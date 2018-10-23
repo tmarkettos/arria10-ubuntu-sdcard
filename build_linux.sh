@@ -5,7 +5,7 @@ COMPILER_URL="https://releases.linaro.org/components/toolchain/binaries/7.2-2017
 CWD=$(pwd)
 CPUS=8
 
-KERNEL_BRANCH="socfpga-4.15"
+KERNEL_BRANCH="socfpga-4.17"
 
 echo "Fetching compiler..."
 wget -c $COMPILER_URL
