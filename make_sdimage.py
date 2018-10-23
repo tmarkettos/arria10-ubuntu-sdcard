@@ -327,11 +327,11 @@ def create_loopback(image_name, size, offset=0):
     try:
         if offset != 0:
             device = check_output(
-                  ["losetup", "--show", "-f", "-o "+str(offset),
+                  ["losetup", "-P", "--show", "-f", "-o "+str(offset),
                    "--sizelimit", str(size), image_name])
         else:
             device = check_output(
-                        ["losetup", "--show", "-f",
+                        ["losetup", "-P", "--show", "-f",
                          "--sizelimit", str(size), image_name])
     except subprocess.CalledProcessError:
         print "error: failed to get a loopback device"
@@ -432,13 +432,13 @@ w
 q
 """
     p.stdin.write(cmd)
-    p.wait()
+    p.communicate()
 
     # sometimes the kernel does not reload the pattition table
     #!a little help is needed
     if p.returncode != 0:
         pp = subprocess.Popen(["partprobe", loopback])
-        pp.wait()
+        pp.communicate()
         if pp.returncode != 0:
             print "error: could not reload the partition table from image"
             sys.exit(-1)
@@ -484,7 +484,7 @@ def format_partition(loopback, fs_format):
             p = subprocess.Popen([cmd, loopback],
                                  stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         #RODO: add timeout?
-        p.wait()
+        p.communicate()
         if p.returncode != 0:
             print "error: format: failed"
             clean_up()
@@ -593,10 +593,12 @@ def do_copy(loopback, partition_data):
         #! so we need to call cp with the option -t, such that the destination
         #! directory can be specified first. The list returned by glob can then
         #! be added to the list of args passed to Popen
+        print mp
+        print glob.glob(stuff)
         try:
             p = subprocess.Popen(["cp", cp_opt, mp ] + glob.glob(stuff),
                                  stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            p.wait()
+            [output,stderr] = p.communicate()
             if p.returncode:
                 raise Exception([])
         except Exception:
