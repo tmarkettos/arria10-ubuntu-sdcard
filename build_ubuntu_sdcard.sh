@@ -2,6 +2,7 @@
 
 FPGA_DIR=$1
 FPGA_PROJECT=$2
+QSYS=$3
 FPGA_HANDOFF_DIR=hps_isw_handoff
 FPGA_BITFILE_RBF=$FPGA_DIR/output_files/$FPGA_PROJECT.rbf
 SD_IMAGE=sdimage.img
@@ -29,7 +30,7 @@ function uboot() {
 }
 
 function devicetree() {
-	$SCRIPT_PATH/make_device_tree.sh $FPGA_DIR $FPGA_PROJECT.sopcinfo
+	$SCRIPT_PATH/make_device_tree.sh $FPGA_DIR $QSYS.sopcinfo
 
 	cp -a $FPGA_DIR/$DTB $DTB	
 }
