@@ -8,6 +8,10 @@ process.
 
 ## Prerequisites
 
+* A Linux machine with the Quartus tools installed and on your PATH (tested with Ubuntu 16.04/18.04 and Quartus
+  18.1).  In particular, the 'Intel SoC FPGA Embedded Development Suite Standard
+  Edition'.  A licence for Quartus should not be necessary if you are not
+  resynthesising the FPGA bitfiles.
 * A Quartus project which has built a suitable bitfile (.sof) - this will be converted to the necessary .rbf as part of the build
 * A Platform Designer (Qsys) design of the FPGA SoC that will be used to build the device tree
 * An internet connection (to download necessary pieces)
@@ -20,4 +24,5 @@ process.
 ## Author
 
 Theo Markettos
+
 thunderclap+atm26 at cl.cam.ac.uk
